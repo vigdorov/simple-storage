@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { Document } from 'mongoose';
-import { Storage } from './types';
+import { Storage, StorageCreate } from './types';
 
 export class AuthRequest {
   @ApiProperty()
@@ -35,6 +35,12 @@ export class StorageDocument extends Document {
     type: String,
     required: true,
   })
+  storageName: string;
+
+  @Prop({
+    type: String,
+    required: true,
+  })
   user: string;
 }
 
@@ -49,5 +55,16 @@ export class StorageResponse implements Storage {
   user: string;
 
   @ApiProperty()
+  storageName: string;
+
+  @ApiProperty()
   id: string;
+}
+
+export class StorageCreateRequest implements StorageCreate {
+  @ApiProperty()
+  data: object;
+
+  @ApiProperty()
+  storageName: string;
 }

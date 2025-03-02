@@ -16,7 +16,13 @@ export const AUTH_ERROR: ApiResponseOptions = {
 
 export const GET_STORAGES_LIST_SUCCESS: ApiResponseOptions = {
   status: 200,
-  description: 'Список всех картинок',
+  description: 'Список всех storage пользователя',
   type: StorageResponse,
   isArray: true,
+};
+
+export const MANIPULATE_STORAGE_SUCCESS: ApiResponseOptions = {
+  status: 200,
+  description: 'Storage',
+  type: StorageResponse,
 };

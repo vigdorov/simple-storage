@@ -6,7 +6,13 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { StorageDocument, UserDocument } from './schemas';
 import { Model } from 'mongoose';
-import { User, Storage, StorageCreate, StorageUpdate } from './types';
+import {
+  User,
+  Storage,
+  StorageCreate,
+  StorageUpdate,
+  StorageList,
+} from './types';
 import { v4 } from 'uuid';
 import { DB_STORAGES, DB_USERS } from './consts';
 
@@ -46,12 +52,12 @@ export class AppService {
     return newUser.token;
   }
 
-  async getStorageList(login: string): Promise<Storage[]> {
+  async getStorageList(login: string): Promise<StorageList> {
     const storageList = await this.storageModel.find().exec();
-    const preparedList = storageList.map(({ data, _id, user }) => ({
-      data,
+    const preparedList = storageList.map(({ _id, user, storageName }) => ({
       id: _id as string,
       user,
+      storageName,
     }));
 
     return preparedList.filter(({ user }) => user === login);
@@ -63,6 +69,7 @@ export class AppService {
       return {
         data: searchStorage.data,
         id: searchStorage._id as string,
+        storageName: searchStorage.storageName,
         user: searchStorage.user,
       };
     }
@@ -73,6 +80,7 @@ export class AppService {
     const Model = this.storageModel;
     const storageModel = new Model({
       data: storage.data,
+      storageName: storage.storageName,
       user: login,
     });
     try {
@@ -86,6 +94,7 @@ export class AppService {
     return {
       data: newStorage.data,
       user: newStorage.user,
+      storageName: newStorage.storageName,
       id: newStorage._id as string,
     };
   }
@@ -101,13 +110,17 @@ export class AppService {
       throw new BadRequestException(`Storage с id - "${id}" не найден`);
     }
 
+    const updatedStorageName = storage.storageName ?? searchStorage.storageName;
+
     await searchStorage.updateOne({
       data: storage.data,
+      storageName: updatedStorageName,
     });
 
     return {
       data: storage.data,
       user: searchStorage.user,
+      storageName: updatedStorageName,
       id: searchStorage._id as string,
     };
   }
@@ -124,6 +137,7 @@ export class AppService {
     return {
       data: searchStorage.data,
       user: searchStorage.user,
+      storageName: searchStorage.storageName,
       id: searchStorage._id as string,
     };
   }

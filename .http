@@ -1,0 +1,57 @@
+### use REST Client plugin for VSCode https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+@host = http://localhost:4005
+@user = test_user
+@auth = 7b5da8a1-b64c-43ea-90f3-cdd3da507504
+@storage_id = 67c420ab38fafe445411e76a
+
+### Auth
+POST {{host}}/auth HTTP/1.1
+content-type: application/json
+
+{
+    "login": "{{user}}"
+}
+
+### Get storages list
+GET {{host}}/storages HTTP/1.1
+content-type: application/json
+Authorization: {{auth}}
+
+{
+    "login": "test_user"
+}
+
+### Create storage
+POST {{host}}/storages HTTP/1.1
+content-type: application/json
+Authorization: {{auth}}
+
+{
+  "data": {
+    "users": ["ivan", "maria"],
+    "count": 2
+  },
+  "storageName": "users"
+}
+
+### Get storage
+GET {{host}}/storages/{{storage_id}} HTTP/1.1
+content-type: application/json
+Authorization: {{auth}}
+
+### Update storage
+PUT {{host}}/storages/{{storage_id}} HTTP/1.1
+content-type: application/json
+Authorization: {{auth}}
+
+{
+  "data": {
+    "users": ["ivan", "maria", "fedor"],
+    "count": 3
+  }
+}
+
+### Remove image
+DELETE {{host}}/storages/{{storage_id}} HTTP/1.1
+content-type: application/json
+Authorization: {{auth}}
