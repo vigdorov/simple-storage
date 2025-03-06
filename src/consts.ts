@@ -1,13 +1,20 @@
-export const MONGO_URL = 'mongodb://localhost:27017';
+// Подключение к MongoDB
+export const MONGO_URL = process.env.MONGODB_URI || 'mongodb://localhost:27017';
 
+// Имя базы данных для пользователей и хранилищ
+export const DB_USERS = process.env.DB_USERS || 'storage-back-users';
+export const DB_STORAGES = process.env.DB_STORAGES || 'storage-back-storages';
+
+// Порт приложения
+export const APP_PORT = parseInt(process.env.APP_PORT || '3000', 10);
+
+// Другие константы
 export const APP_CONTROLLER = 'storage-app';
 
-export const DB_USERS = 'storage-back-users';
-export const DB_STORAGES = 'storage-back-storages';
-
+// CORS настройки
 export const ALLOW_ORIGIN_ALL: [string, string] = [
   'Access-Control-Allow-Origin',
-  '*',
+  process.env.CORS_ORIGIN || '*',
 ];
 export const ALLOW_CREDENTIALS: [string, string] = [
   'Access-Control-Allow-Credentials',
