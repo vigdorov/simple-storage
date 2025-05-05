@@ -23,5 +23,5 @@ export type StorageCreate = {
 
 export type StorageUpdate = {
   data: object;
-  storageName?: string;
+  storageName: string;
 };

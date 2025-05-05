@@ -1,8 +1,8 @@
 ### use REST Client plugin for VSCode https://marketplace.visualstudio.com/items?itemName=humao.rest-client
-@host = http://localhost:4005
+@host = https://simple-storage.vigdorov.ru
 @user = test_user
-@auth = 7b5da8a1-b64c-43ea-90f3-cdd3da507504
-@storage_id = 67c420ab38fafe445411e76a
+@auth = 6d4c2f3e-e9ae-4a57-8a10-91656e4902eb
+@storage_id = 6817ac44687546864fb1f5ac
 
 ### Auth
 POST {{host}}/auth HTTP/1.1
@@ -28,10 +28,9 @@ Authorization: {{auth}}
 
 {
   "data": {
-    "users": ["ivan", "maria"],
-    "count": 2
+    "tasks": []
   },
-  "storageName": "users"
+  "storageName": "tasks"
 }
 
 ### Get storage
@@ -46,8 +45,23 @@ Authorization: {{auth}}
 
 {
   "data": {
-    "users": ["ivan", "maria", "fedor"],
-    "count": 3
+    "tasks": [
+        {
+            "title": "task #1"
+        },
+        {
+            "title": "task #1"
+        },
+        {
+            "title": "task #1"
+        },
+        {
+            "title": "task #1"
+        },
+        {
+            "title": "task #1"
+        }
+    ]
   }
 }
 

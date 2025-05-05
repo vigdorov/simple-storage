@@ -32,7 +32,11 @@ import {
   MANIPULATE_STORAGE_SUCCESS,
   GET_STORAGES_LIST_SUCCESS,
 } from './api.responses';
-import { AuthRequest, StorageCreateRequest } from './schemas';
+import {
+  AuthRequest,
+  StorageCreateRequest,
+  StorageUpdateRequest,
+} from './schemas';
 import { Storage, StorageCreate, StorageList, StorageUpdate } from './types';
 
 @Controller()
@@ -106,6 +110,10 @@ export class AppController {
   @ApiParam({
     name: 'id',
     description: 'id storage',
+  })
+  @ApiBody({
+    type: StorageUpdateRequest,
+    description: 'Объект обновления storage',
   })
   @Header(...ALLOW_ORIGIN_ALL)
   @ApiResponse(MANIPULATE_STORAGE_SUCCESS)

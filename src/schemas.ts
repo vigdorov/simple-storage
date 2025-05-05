@@ -68,3 +68,8 @@ export class StorageCreateRequest implements StorageCreate {
   @ApiProperty()
   storageName: string;
 }
+
+export class StorageUpdateRequest {
+  @ApiProperty()
+  data: object;
+}
